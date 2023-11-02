@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Models\Teacher;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,19 +14,22 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+//All teachers
 Route::get('/', function () {
-    return view('welcome');
+    return view('teachers', [        
+        'heading' => 'The teachers',
+        'teachers' => Teacher::all()
+    ]);
 });
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+//single teacher
+Route::get('/teachers/{id}', function ($id) {
+    return view('teacher', [
+        'teacher'=> Teacher::find($id)
+        ]);
 });
+//Route::get('/dashboard', function () {
+//    return view('dashboard');
+//})->middleware(['auth', 'verified'])->name('dashboard');
+
 
 require __DIR__.'/auth.php';
