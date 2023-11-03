@@ -1,7 +1,12 @@
 <!--img-->
 <h2>
     {{$teacher['firstName']}} {{$teacher['lastName']}}   
-</h2>   
+</h2>  
+<form method="POST" action="/teachers/{{$teacher->id}}">
+    @csrf
+    @method('DELETE')
+    <button class="text-red-500">Delete</button>
+</form> 
 <h3>id: {{$teacher['id']}}</h3>
 <p>gender: {{$teacher['gender']}}</p> 
 <br>

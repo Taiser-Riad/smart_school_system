@@ -20,4 +20,9 @@ class TeacherController extends Controller
             'teacher'=> $teacher
             ]);
     }
+    //Delete teacher
+    public function destroy(Teacher $teacher){
+        $teacher->delete();
+        return redirect('/')->with('message','Teacher deleted successfully');
+    }
 }

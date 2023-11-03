@@ -17,6 +17,9 @@ use App\Models\Teacher;
 */
 //All teachers
 Route::get('/', [TeacherController::class, 'index']);
+//Delete teacher
+Route::delete('/teachers/{teacher}', [TeacherController::class,'destroy']);
+
 //single teacher
 Route::get('/teachers/{teacher}', [TeacherController::class,'show']);
 
