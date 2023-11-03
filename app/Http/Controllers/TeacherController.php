@@ -32,7 +32,7 @@ class TeacherController extends Controller
             'lastName' => 'required',
             'gender' => 'required',
             'age' => 'required',
-            'email' => ['required', Rule::unique('teachers','email')],
+            'email' => ['required', Rule::unique('teachers','email'),'email'],
             'password' =>['required','confirmed','min:6'],
             'phone' => 'required',
             'about'=> 'required',
@@ -43,9 +43,33 @@ class TeacherController extends Controller
         }
         //Hash password
         $formFields['password'] = bcrypt($formFields['password']);
-        $teacher = Teacher::create($formFields);
+        Teacher::create($formFields);
         return redirect('/');
     }
+    //Show edit form
+    public function edit(Teacher $teacher){
+        return view('Teachers.edit', ['teacher'=>$teacher]);
+    }
+//Update teacher info
+    public function update(Request $request, Teacher $teacher){
+            $formFields = $request->validate([
+            'firstName' => 'required',
+            'lastName' => 'required',
+            'gender' => 'required',
+            'age' => 'required',
+            'email' => ['required', 'email'],
+            'phone' => 'required',
+            'about'=> 'required',
+            'salary'=> 'required',
+        ]);
+        if($request->hasFile('img')){
+            $formFields['img']= $request->file('img')->store('teachers','public');
+        }
+        $formFields['password'] = $teacher->password;
+        $teacher->update($formFields);
+        return back();
+    }
+
 
     //Delete teacher
     public function destroy(Teacher $teacher){

@@ -21,6 +21,10 @@ Route::get('/', [TeacherController::class, 'index']);
 Route::delete('/teachers/{teacher}', [TeacherController::class,'destroy']);
 //Show add new teacher form
 Route::get('/teachers/create', [TeacherController::class,'create']);
+//Show edit teacher form
+Route::get('/teachers/{teacher}/edit', [TeacherController::class,'edit']);
+//Update teacher info
+Route::put('/teachers/{teacher}', [TeacherController::class,'update']);
 //Store teacher data
 Route::post('/teachers', [TeacherController::class,'store']);
 //single teacher

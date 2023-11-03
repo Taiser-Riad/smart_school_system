@@ -17,9 +17,10 @@
       }
     }
 </script>
-<h1>Add a new teacher</h1>
-<form method="POST" action="/teachers" enctype="multipart/form-data">
+<h1>Edit teacher info</h1>
+<form method="POST" action="/teachers/{{$teacher->id}}" enctype="multipart/form-data">
     @csrf
+    @method('PUT')
     <div class="mb-6">
         <label
             for="firstName"
@@ -30,7 +31,7 @@
             type="text"
             class="border border-gray-200 rounded p-2 w-full"
             name="firstName"
-            value="{{old('firstName')}}"
+            value="{{$teacher->firstName}}"
         />
         @error('firstName')
         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
@@ -47,7 +48,7 @@
             type="text"
             class="border border-gray-200 rounded p-2 w-full"
             name="lastName"
-            value="{{old('lastName')}}"
+            value="{{$teacher->lastName}}"
         />
         @error('lastName')
         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
@@ -64,7 +65,7 @@
             type="radio"
             name="gender"
             id="male"
-            value="male" {{ (old('gender') == 'male') ? 'checked' : ''}}
+            value="male" {{ ($teacher->gender == 'male') ? 'checked' : ''}}
         />
         <label
         for="male"
@@ -75,7 +76,7 @@
         type="radio"
         name="gender"
         id="female"
-        value="female" {{ (old('gender') == 'female') ? 'checked' : ''}}
+        value="female" {{ ($teacher->gender == 'female') ? 'checked' : ''}}
         />
         <label
         for="female"
@@ -98,14 +99,14 @@
             type="text"
             class="border border-gray-200 rounded p-2 w-full"
             name="email"
-            value="{{old('email')}}"
+            value="{{$teacher->email}}"
         />
         @error('email')
         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
         @enderror
     </div>
 
-    <div class="mb-6">
+<!--    <div class="mb-6">
         <label
             for="password"
             class="inline-block text-lg mb-2"
@@ -144,7 +145,7 @@
             <p class="text-red-500 text-xs mt-1">{{$message}}</p>
         @enderror
     </div>
-
+-->
     <div class="mb-6">
         <label for="img" class="inline-block text-lg mb-2">
             Teacher's image
@@ -153,12 +154,16 @@
             type="file"
             class="border border-gray-200 rounded p-2 w-full"
             name="img"
+            value={{$teacher->img}}
         />
         @error('img')
         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
         @enderror
     </div>
-
+    <img
+    src="{{$teacher->img ? asset('storage/' . $teacher->img) : asset('images/no-image.png')}}"
+    alt=""
+    />
     <div class="mb-6">
         <label
             for="salary"
@@ -169,7 +174,7 @@
             type="number"
             class="border border-gray-200 rounded p-2 w-full"
             name="salary"
-            value="{{old('salary')}}"
+            value="{{$teacher->salary}}"
         />
         @error('salary')
         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
@@ -186,7 +191,7 @@
             type="number"
             class="border border-gray-200 rounded p-2 w-full"
             name="age"
-            value="{{old('age')}}"
+            value="{{$teacher->age}}"
             min="18"
         />
         @error('age')
@@ -204,7 +209,7 @@
             type="tel"
             class="border border-gray-200 rounded p-2 w-full"
             name="phone"
-            value="{{old('phone')}}"
+            value="{{$teacher->phone}}"
         />
         @error('phone')
         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
@@ -223,7 +228,7 @@
             name="about"
             rows="10"
             placeholder="Include tasks, requirements, salary, etc"
-        >{{old('about')}}</textarea>
+        >{{$teacher->about}}</textarea>
         @error('about')
         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
         @enderror
@@ -233,7 +238,7 @@
         <button
             class="bg-laravel text-white rounded py-2 px-4 hover:bg-black"
         >
-            Add Teacher
+            Edit info
         </button>
 
         <a href="/" class="text-black ml-4"> Back </a>
