@@ -19,7 +19,10 @@ use App\Models\Teacher;
 Route::get('/', [TeacherController::class, 'index']);
 //Delete teacher
 Route::delete('/teachers/{teacher}', [TeacherController::class,'destroy']);
-
+//Show add new teacher form
+Route::get('/teachers/create', [TeacherController::class,'create']);
+//Store teacher data
+Route::post('/teachers', [TeacherController::class,'store']);
 //single teacher
 Route::get('/teachers/{teacher}', [TeacherController::class,'show']);
 

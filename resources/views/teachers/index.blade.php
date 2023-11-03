@@ -1,5 +1,7 @@
 <h1>{{$heading}}</h1>
-
+<a href="/teachers/create">
+     <button>Add new teacher</button>
+</a>
 @unless (count($teachers) == 0)
 @foreach ($teachers as $teacher)
 <h2>

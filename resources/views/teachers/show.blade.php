@@ -1,4 +1,7 @@
-<!--img-->
+<img
+src="{{$teacher->img ? asset('storage/' . $teacher->img) : asset('images/no-image.png')}}"
+alt=""
+/>
 <h2>
     {{$teacher['firstName']}} {{$teacher['lastName']}}   
 </h2>  
