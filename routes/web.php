@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TeacherController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Teacher;
 
@@ -15,18 +16,12 @@ use App\Models\Teacher;
 |
 */
 //All teachers
-Route::get('/', function () {
-    return view('teachers', [        
-        'heading' => 'The teachers',
-        'teachers' => Teacher::all()
-    ]);
-});
+Route::get('/', [TeacherController::class, 'index']);
 //single teacher
-Route::get('/teachers/{id}', function ($id) {
-    return view('teacher', [
-        'teacher'=> Teacher::find($id)
-        ]);
-});
+Route::get('/teachers/{teacher}', [TeacherController::class,'show']);
+
+
+
 //Route::get('/dashboard', function () {
 //    return view('dashboard');
 //})->middleware(['auth', 'verified'])->name('dashboard');

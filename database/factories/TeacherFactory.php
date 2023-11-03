@@ -19,6 +19,7 @@ class TeacherFactory extends Factory
         return [
             'firstName' => $this->faker->firstName,
             'lastName' => $this->faker->lastName,
+            'img'=> NULL,
             'age'=> $this->faker->numberBetween(20,50),
             'gender' => $this->faker->randomElement(['male', 'female']),
             'email'=> $this->faker->safeEmail,
