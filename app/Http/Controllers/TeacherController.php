@@ -44,7 +44,7 @@ class TeacherController extends Controller
         //Hash password
         $formFields['password'] = bcrypt($formFields['password']);
         Teacher::create($formFields);
-        return redirect('/');
+        return redirect('/teachers');
     }
     //Show edit form
     public function edit(Teacher $teacher){
@@ -65,7 +65,18 @@ class TeacherController extends Controller
         if($request->hasFile('img')){
             $formFields['img']= $request->file('img')->store('teachers','public');
         }
+        /*if($request['newPassword']==NULL){
         $formFields['password'] = $teacher->password;
+        }else{
+            $newPassword['1'] = $request->validate(['newPassword' =>['required','confirmed','min:6'],]);
+            $newPassword['1'] = bcrypt($newPassword['1']);
+            if($newPassword['1'] != $request->currentPassword){
+            }
+            else{
+                $formFields['password']=$newPassword['1'];
+            }
+
+        }*/
         $teacher->update($formFields);
         return back();
     }
@@ -74,6 +85,6 @@ class TeacherController extends Controller
     //Delete teacher
     public function destroy(Teacher $teacher){
         $teacher->delete();
-        return redirect('/')->with('message','Teacher deleted successfully');
+        return redirect('/teachers')->with('message','Teacher deleted successfully');
     }
 }

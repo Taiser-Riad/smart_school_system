@@ -1,4 +1,9 @@
 <h1>{{$heading}}</h1>
+<a href="/">
+     <button>Back</button>
+</a>
+<br>
+<br>
 <a href="/teachers/create">
      <button>Add new teacher</button>
 </a>

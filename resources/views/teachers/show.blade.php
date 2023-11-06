@@ -5,6 +5,11 @@ alt=""
 <h2>
     {{$teacher->firstName}} {{$teacher->lastName}}   
 </h2>  
+<a href="/teachers">
+    <button>Back</button>
+</a>
+<br>
+<br>
 <form method="POST" action="/teachers/{{$teacher->id}}">
     @csrf
     @method('DELETE')

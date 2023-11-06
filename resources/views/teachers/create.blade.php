@@ -140,7 +140,7 @@
             id="password_confirmation"
         />
         <input type="checkbox" onclick="passwordConfirmationVisibility()">Show Password Confirmation
-        @error('npassword_confirmation')
+        @error('password_confirmation')
             <p class="text-red-500 text-xs mt-1">{{$message}}</p>
         @enderror
     </div>
@@ -236,6 +236,6 @@
             Add Teacher
         </button>
 
-        <a href="/" class="text-black ml-4"> Back </a>
+        <a href="/teachers" class="text-black ml-4"> Back </a>
     </div>
 </form>

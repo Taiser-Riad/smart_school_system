@@ -1,22 +1,15 @@
 <script>
     function passwordVisiblity() {
-      var x = document.getElementById("currentpassword");
+      var x = document.getElementById("password");
       if (x.type === "password") {
         x.type = "text";
       } else {
         x.type = "password";
       }
-    }
-      function newPasswordVisiblity() {
-      var x = document.getElementById("newPassword");
-      if (x.type === "password") {
-        x.type = "text";
-      } else {
-        x.type = "password";
-      }
+
     }
     function passwordConfirmationVisibility(){
-        var x = document.getElementById("newPassword_confirmation");
+        var x = document.getElementById("password_confirmation");
       if (x.type === "password") {
         x.type = "text";
       } else {
@@ -24,8 +17,8 @@
       }
     }
 </script>
-<h1>Edit teacher info</h1>
-<form method="POST" action="/teachers/{{$teacher->id}}" enctype="multipart/form-data">
+<h1>Edit student info</h1>
+<form method="POST" action="/students/{{$student->id}}" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <div class="mb-6">
@@ -38,13 +31,12 @@
             type="text"
             class="border border-gray-200 rounded p-2 w-full"
             name="firstName"
-            value="{{$teacher->firstName}}"
+            value="{{$student->firstName}}"
         />
         @error('firstName')
         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
         @enderror
     </div>
-
     <div class="mb-6">
         <label
             for="lastName"
@@ -55,9 +47,58 @@
             type="text"
             class="border border-gray-200 rounded p-2 w-full"
             name="lastName"
-            value="{{$teacher->lastName}}"
+            value="{{$student->lastName}}"
         />
         @error('lastName')
+        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+        @enderror
+    </div>
+
+    <div class="mb-6">
+        <label
+            for="fatherName"
+            class="inline-block text-lg mb-2"
+            >Father's Name</label
+        >
+        <input
+            type="text"
+            class="border border-gray-200 rounded p-2 w-full"
+            name="fatherName"
+            value="{{$student->fatherName}}"
+        />
+        @error('fatherName')
+        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+        @enderror
+    </div>
+    <div class="mb-6">
+        <label
+            for="motherFirstName"
+            class="inline-block text-lg mb-2"
+            >Mother's First Name</label
+        >
+        <input
+            type="text"
+            class="border border-gray-200 rounded p-2 w-full"
+            name="motherFirstName"
+            value="{{$student->motherFirstName}}"
+        />
+        @error('motherFirstName')
+        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+        @enderror
+    </div>
+    <div class="mb-6">
+        <label
+            for="motherLastName"
+            class="inline-block text-lg mb-2"
+            >Mother Last Name</label
+        >
+        <input
+            type="text"
+            class="border border-gray-200 rounded p-2 w-full"
+            name="motherLastName"
+            value="{{$student->motherLastName}}"
+        />
+        @error('motherLastName')
         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
         @enderror
     </div>
@@ -72,7 +113,7 @@
             type="radio"
             name="gender"
             id="male"
-            value="male" {{ ($teacher->gender == 'male') ? 'checked' : ''}}
+            value="male" {{ ($student->gender == 'male') ? 'checked' : ''}}
         />
         <label
         for="male"
@@ -83,7 +124,7 @@
         type="radio"
         name="gender"
         id="female"
-        value="female" {{ ($teacher->gender == 'female') ? 'checked' : ''}}
+        value="female" {{ ($student->gender == 'female') ? 'checked' : ''}}
         />
         <label
         for="female"
@@ -106,104 +147,84 @@
             type="text"
             class="border border-gray-200 rounded p-2 w-full"
             name="email"
-            value="{{$teacher->email}}"
+            value="{{$student->email}}"
         />
         @error('email')
         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
         @enderror
     </div>
-<!--<h4>If you wanna keep the current password keep the new passowrd field empty!</h4>
+<!--
     <div class="mb-6">
         <label
-            for="currentpassword"
+            for="password"
             class="inline-block text-lg mb-2"
         >
-            Current Password
+            Password
         </label>
         <input
             type="password"
             class="border border-gray-200 rounded p-2 w-full"
-            name="currentpassword"
-            value="{{old('currentpassword')}}"
-            id="currentpassword"
+            name="password"
+            value="{{old('password')}}"
+            id="password"
         />
-        <input type="checkbox" onclick="passwordVisiblity()">Show Current Password
-        @error('currentpassword')
+        <input type="checkbox" onclick="passwordVisiblity()">Show Password
+        @error('password')
             <p class="text-red-500 text-xs mt-1">{{$message}}</p>
         @enderror
     </div>
 
     <div class="mb-6">
         <label
-            for="newPassword"
+            for="password_confirmation"
             class="inline-block text-lg mb-2"
         >
-            New Password
+            Confirm Password
         </label>
         <input
             type="password"
             class="border border-gray-200 rounded p-2 w-full"
-            name="newPassword"
-            value="{{old('newPassword')}}"
-            id="newPassword"
+            name="password_confirmation"
+            value="{{old('password_confirmation')}}"
+            id="password_confirmation"
         />
-        <input type="checkbox" onclick="newPasswordVisiblity()">Show New Password
-        @error('newPassword')
-            <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-        @enderror
-    </div>
-
-    <div class="mb-6">
-        <label
-            for="newPassword_confirmation"
-            class="inline-block text-lg mb-2"
-        >
-            Confirm New Password
-        </label>
-        <input
-            type="password"
-            class="border border-gray-200 rounded p-2 w-full"
-            name="newPassword_confirmation"
-            value="{{old('newPassword_confirmation')}}"
-            id="newPassword_confirmation"
-        />
-        <input type="checkbox" onclick="passwordConfirmationVisibility()">Show New Password Confirmation
-        @error('newPassword_confirmation')
+        <input type="checkbox" onclick="passwordConfirmationVisibility()">Show Password Confirmation
+        @error('password_confirmation')
             <p class="text-red-500 text-xs mt-1">{{$message}}</p>
         @enderror
     </div>
 -->
     <div class="mb-6">
         <label for="img" class="inline-block text-lg mb-2">
-            Teacher's image
+            student's image
         </label>
         <input
             type="file"
             class="border border-gray-200 rounded p-2 w-full"
             name="img"
-            value={{$teacher->img}}
         />
         @error('img')
         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
         @enderror
     </div>
     <img
-    src="{{$teacher->img ? asset('storage/' . $teacher->img) : asset('images/no-image.png')}}"
+    src="{{$student->img ? asset('storage/' . $student->img) : asset('images/no-image.png')}}"
     alt=""
     />
+
     <div class="mb-6">
         <label
-            for="salary"
+            for="dateOfBirth"
             class="inline-block text-lg mb-2"
-            >Salary</label
+            >Date of Birth:</label
         >
         <input
-            type="number"
+            type="date"
             class="border border-gray-200 rounded p-2 w-full"
-            name="salary"
-            value="{{$teacher->salary}}"
+            name="dateOfBirth"
+            value="{{$student->dateOfBirth}}"
         />
-        @error('salary')
+        @error('dateOfBirth')
         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
         @enderror
     </div>
@@ -218,8 +239,7 @@
             type="number"
             class="border border-gray-200 rounded p-2 w-full"
             name="age"
-            value="{{$teacher->age}}"
-            min="18"
+            value="{{$student->age}}"
         />
         @error('age')
         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
@@ -228,17 +248,71 @@
 
     <div class="mb-6">
         <label
-            for="phone"
+            for="schoolYear"
             class="inline-block text-lg mb-2"
-            >Phone</label
+            >School Year:</label
+        >
+        <input
+            type="number"
+            class="border border-gray-200 rounded p-2 w-full"
+            name="schoolYear"
+            value="{{$student->schoolYear}}"
+            min="1"
+            max="4"
+        />
+        @error('schoolYear')
+        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+        @enderror
+    </div>
+
+    <div class="mb-6">
+        <label
+            for="group"
+            class="inline-block text-lg mb-2"
+            >Group:</label
+        >
+        <input
+            type="number"
+            class="border border-gray-200 rounded p-2 w-full"
+            name="group"
+            value="{{$student->group}}"
+            min="1"
+        />
+        @error('group')
+        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+        @enderror
+    </div>
+
+    <div class="mb-6">
+        <label
+            for="fatherPhone"
+            class="inline-block text-lg mb-2"
+            >Father's Phone</label
         >
         <input
             type="tel"
             class="border border-gray-200 rounded p-2 w-full"
-            name="phone"
-            value="{{$teacher->phone}}"
+            name="fatherPhone"
+            value="{{$student->fatherPhone}}"
         />
-        @error('phone')
+        @error('fatherPhone')
+        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+        @enderror
+    </div>
+
+    <div class="mb-6">
+        <label
+            for="motherPhone"
+            class="inline-block text-lg mb-2"
+            >Mother's Phone</label
+        >
+        <input
+            type="tel"
+            class="border border-gray-200 rounded p-2 w-full"
+            name="motherPhone"
+            value="{{$student->motherPhone}}"
+        />
+        @error('motherPhone')
         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
         @enderror
     </div>
@@ -255,7 +329,7 @@
             name="about"
             rows="10"
             placeholder="Include tasks, requirements, salary, etc"
-        >{{$teacher->about}}</textarea>
+        >{{$student->about}}</textarea>
         @error('about')
         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
         @enderror
@@ -265,9 +339,9 @@
         <button
             class="bg-laravel text-white rounded py-2 px-4 hover:bg-black"
         >
-            Edit info
+            Edit student
         </button>
 
-        <a href="/teachers/{{$teacher->id}}" class="text-black ml-4"> Back </a>
+        <a href="/students/{{$student->id}}" class="text-black ml-4"> Back </a>
     </div>
 </form>
