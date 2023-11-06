@@ -1,4 +1,4 @@
-<script>
+<!--<script>
     function passwordVisiblity() {
       var x = document.getElementById("currentpassword");
       if (x.type === "password") {
@@ -24,6 +24,10 @@
       }
     }
 </script>
+-->
+<a href="/teachers/{{$teacher->id}}/editpassword">
+    <button>Change teacher password</button>
+</a>
 <h1>Edit teacher info</h1>
 <form method="POST" action="/teachers/{{$teacher->id}}" enctype="multipart/form-data">
     @csrf
