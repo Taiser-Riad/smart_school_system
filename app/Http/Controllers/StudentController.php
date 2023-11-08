@@ -90,7 +90,22 @@ class StudentController extends Controller
     }*/
     $student->update($formFields);
     return back();
-}
+    }
+
+        //Show edit password form
+        public function editpassword(Student $student){
+            return view('Students.editpassword', ['student'=>$student]);
+        }
+
+        public function updatePassword(Request $request, Student $student){
+        $formFields = $request->validate([
+            'password'=> ['required','confirmed','min:6'],
+        ]);
+        $formFields['password'] = bcrypt($formFields['password']);
+        $student->update($formFields);
+        return back();
+        }
+
         public function destroy(Student $student){
             $student->delete();
             return redirect('/students')->with('message','Teacher deleted successfully');

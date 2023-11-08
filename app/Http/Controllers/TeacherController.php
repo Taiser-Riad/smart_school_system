@@ -81,6 +81,20 @@ class TeacherController extends Controller
         return back();
     }
 
+        //Show edit password form
+        public function editpassword(Teacher $teacher){
+            return view('Teachers.editpassword', ['teacher'=>$teacher]);
+        }
+
+        public function updatePassword(Request $request, Teacher $teacher){
+        $formFields = $request->validate([
+            'password'=> ['required','confirmed','min:6'],
+        ]);
+        $formFields['password'] = bcrypt($formFields['password']);
+        $teacher->update($formFields);
+        return back();
+        }
+
 
     //Delete teacher
     public function destroy(Teacher $teacher){

@@ -35,6 +35,10 @@ Route::post('/teachers', [TeacherController::class,'store']);
 Route::get('/teachers/{teacher}/edit', [TeacherController::class,'edit']);
 //Update teacher info
 Route::put('/teachers/{teacher}', [TeacherController::class,'update']);
+//Show edit teacher password form
+Route::get('/teachers/{teacher}/editpassword', [TeacherController::class,'editpassword']);
+//Update teacher password
+Route::put('/teachers/{teacher}', [TeacherController::class,'updatepassword']);
 //single teacher
 Route::get('/teachers/{teacher}', [TeacherController::class,'show']);
 
@@ -52,6 +56,10 @@ Route::post('/students', [StudentController::class,'store']);
 Route::get('/students/{student}/edit', [StudentController::class,'edit']);
 //Update student info
 Route::put('/students/{student}', [StudentController::class,'update']);
+//Show edit teacher password form
+Route::get('/students/{student}/editpassword', [StudentController::class,'editpassword']);
+//Update teacher password
+Route::put('/students/{student}', [StudentController::class,'updatepassword']);
 //single student
 Route::get('/students/{student}', [StudentController::class,'show']);
 
