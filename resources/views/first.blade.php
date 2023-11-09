@@ -8,3 +8,9 @@
 <a href="/students">
     <button>Manage students</button>
 </a>
+<br>
+<br>
+<br>
+<a href="/classrooms">
+    <button>Manage class rooms</button>
+</a>

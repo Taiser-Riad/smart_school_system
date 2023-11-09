@@ -65,18 +65,6 @@ class TeacherController extends Controller
         if($request->hasFile('img')){
             $formFields['img']= $request->file('img')->store('teachers','public');
         }
-        /*if($request['newPassword']==NULL){
-        $formFields['password'] = $teacher->password;
-        }else{
-            $newPassword['1'] = $request->validate(['newPassword' =>['required','confirmed','min:6'],]);
-            $newPassword['1'] = bcrypt($newPassword['1']);
-            if($newPassword['1'] != $request->currentPassword){
-            }
-            else{
-                $formFields['password']=$newPassword['1'];
-            }
-
-        }*/
         $teacher->update($formFields);
         return back();
     }

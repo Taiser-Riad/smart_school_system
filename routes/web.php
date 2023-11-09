@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TeacherController;
 use Illuminate\Support\Facades\Route;
@@ -62,6 +63,22 @@ Route::get('/students/{student}/editpassword', [StudentController::class,'editpa
 Route::put('/students/{student}', [StudentController::class,'updatepassword']);
 //single student
 Route::get('/students/{student}', [StudentController::class,'show']);
+
+
+//All classrooms
+Route::get('/classrooms', [ClassroomController::class, 'index']);
+//Delete teacher
+Route::delete('/classrooms/{classroom}', [ClassroomController::class,'destroy']);
+//Show add new classroom form
+Route::get('/classrooms/create', [ClassroomController::class,'create']);
+//Store classroom data
+Route::post('/classrooms', [ClassroomController::class,'store']);
+//Show edit classroom form
+Route::get('/classrooms/{classroom}/edit', [ClassroomController::class,'edit']);
+//Update classroom info
+Route::put('/classrooms/{classroom}', [ClassroomController::class,'update']);
+//single classroom
+Route::get('/classrooms/{classroom}', [ClassroomController::class,'show']);
 
 
 //Route::get('/dashboard', function () {
