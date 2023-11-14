@@ -9,6 +9,21 @@ $days=explode(';',$classroom->schedule);
 </a>
 <br>
 <br>
+<a href="/classrooms/{{$classroom->id}}/indexstudents">
+    <button>Students of this class</button>
+</a>
+<br>
+<br>
+<a href="/classrooms/{{$classroom->id}}/indexteachers">
+    <button>Teachers of this class</button>
+</a>
+<br>
+<br>
+<a href="/classrooms/{{$classroom->id}}/addteacher">
+    <button>Add teacher to this class</button>
+</a>
+<br>
+<br>
 <form method="POST" action="/classrooms/{{$classroom->id}}">
     @csrf
     @method('DELETE')

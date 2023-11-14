@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         Teacher::factory(10)->create();
-        Student::factory(10)->create();
         Classroom::factory(2)->create();
+        Student::factory(10)->create();
     }
 }

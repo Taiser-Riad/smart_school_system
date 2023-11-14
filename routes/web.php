@@ -67,7 +67,11 @@ Route::get('/students/{student}', [StudentController::class,'show']);
 
 //All classrooms
 Route::get('/classrooms', [ClassroomController::class, 'index']);
-//Delete teacher
+//All students of this classroom
+Route::get('/classrooms/{classroom}/indexstudents', [ClassroomController::class, 'indexstudents']);
+//All teachers of this classroom
+Route::get('/classrooms/{classroom}/indexteachers', [ClassroomController::class, 'indexteachers']);
+//Delete classroom
 Route::delete('/classrooms/{classroom}', [ClassroomController::class,'destroy']);
 //Show add new classroom form
 Route::get('/classrooms/create', [ClassroomController::class,'create']);
@@ -77,8 +81,15 @@ Route::post('/classrooms', [ClassroomController::class,'store']);
 Route::get('/classrooms/{classroom}/edit', [ClassroomController::class,'edit']);
 //Update classroom info
 Route::put('/classrooms/{classroom}', [ClassroomController::class,'update']);
+//Show add new teacher to classroom form
+Route::get('/classrooms/{classroom}/addteacher', [ClassroomController::class,'addTeacher']);
+//Store teacher-classroom
+Route::post('/classrooms/{classroom}', [ClassroomController::class,'storeTeacher']);
 //single classroom
 Route::get('/classrooms/{classroom}', [ClassroomController::class,'show']);
+
+
+
 
 
 //Route::get('/dashboard', function () {
