@@ -21,6 +21,7 @@ class StudentFactory extends Factory
             'lastName' => $this->faker->lastName,
             'img'=> NULL,
             'classroom_id'=> '1',
+            'user_id'=> NULL,
             'fatherName' => $this->faker->firstName,
             'motherFirstName' => $this->faker->firstName,
             'motherLastName' => $this->faker->lastName,

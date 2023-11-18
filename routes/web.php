@@ -3,6 +3,8 @@
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\ManagerController;
+use App\Http\Controllers\HeadmasterController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Teacher;
 use App\Models\Student;
@@ -98,3 +100,31 @@ Route::get('/classrooms/{classroom}', [ClassroomController::class,'show']);
 
 
 require __DIR__.'/auth.php';
+
+
+//for students
+Route::middleware(['auth','role:student'])->group(function () {
+//welcome student
+Route::get('studentWelcome', [StudentController::class,'welcome']);
+});
+
+
+//for teachers
+Route::middleware(['auth','role:teacher'])->group(function () {
+//welcome teacher
+Route::get('teacherWelcome', [TeacherController::class,'welcome']);
+});
+
+
+//for managers
+Route::middleware(['auth','role:manager'])->group(function () {
+//welcome manager
+Route::get('managerWelcome', [ManagerController::class,'welcome']);
+});
+
+
+//for head-masters
+Route::middleware(['auth','role:headmaster'])->group(function () {
+//welcome head-master
+Route::get('headmasterWelcome', [HeadmasterController::class,'welcome']);
+});

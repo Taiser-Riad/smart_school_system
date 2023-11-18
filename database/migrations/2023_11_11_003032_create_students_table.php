@@ -13,11 +13,16 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')
+            ->nullable()
+            ->constrained('users', 'id')
+            ->onUpdate('cascade')
+            ->onDelete('restrict');
             $table->foreignId('classroom_id')
-      ->nullable()
-      ->constrained('classrooms', 'id')
-      ->onUpdate('cascade')
-      ->onDelete('restrict');
+                  ->nullable()
+                  ->constrained('classrooms', 'id')
+                  ->onUpdate('cascade')
+                  ->onDelete('restrict');
             $table->string('firstName');
             $table->string('lastName');
             $table->string('img')->nullable();

@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\User;
 use App\Models\Teacher;
+use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
 class TeacherController extends Controller
 {
+    //show teacher welcome page
+    public function welcome()
+    {
+        return view("teacherWelcome");
+    }
     //Show all teachers
     public function index(){
         return view('teachers.index', [        
@@ -43,6 +49,12 @@ class TeacherController extends Controller
         }
         //Hash password
         $formFields['password'] = bcrypt($formFields['password']);
+        $u=User::create([
+            'email' => $formFields['email'],
+            'password' => $formFields['password'],
+            'role' => 'teacher',
+        ]);
+        $formFields['user_id']= $u->id;
         Teacher::create($formFields);
         return redirect('/teachers');
     }
@@ -66,6 +78,11 @@ class TeacherController extends Controller
             $formFields['img']= $request->file('img')->store('teachers','public');
         }
         $teacher->update($formFields);
+        $user = User::where('id', $teacher->user_id)->first();
+        if ($user) {
+            $user->email = $formFields['email'];
+            $user->save();
+        }
         return back();
     }
 
@@ -80,6 +97,11 @@ class TeacherController extends Controller
         ]);
         $formFields['password'] = bcrypt($formFields['password']);
         $teacher->update($formFields);
+        $user = User::where('id', $teacher->user_id)->first();
+        if ($user) {
+            $user->password = $formFields['password'];
+            $user->save();
+        }
         return back();
         }
 

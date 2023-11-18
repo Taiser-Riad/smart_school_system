@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
 class StudentController extends Controller
 {
+    //show student welcome page
+    public function welcome()
+    {
+        return view("studentWelcome");
+    }
         //Show all students
         public function index(){
             return view('students.index', [        
@@ -49,6 +55,12 @@ class StudentController extends Controller
         }
         //Hash password
         $formFields['password'] = bcrypt($formFields['password']);
+        $u=User::create([
+            'email' => $formFields['email'],
+            'password' => $formFields['password'],
+            'role' => 'student',
+        ]);
+        $formFields['user_id']= $u->id;
         Student::create($formFields);
         return redirect('/students');
     }
@@ -76,19 +88,12 @@ class StudentController extends Controller
     if($request->hasFile('img')){
         $formFields['img']= $request->file('img')->store('teachers','public');
     }
-    /*if($request['newPassword']==NULL){
-    $formFields['password'] = $teacher->password;
-    }else{
-        $newPassword['1'] = $request->validate(['newPassword' =>['required','confirmed','min:6'],]);
-        $newPassword['1'] = bcrypt($newPassword['1']);
-        if($newPassword['1'] != $request->currentPassword){
-        }
-        else{
-            $formFields['password']=$newPassword['1'];
-        }
-
-    }*/
     $student->update($formFields);
+    $user = User::where('id', $student->user_id)->first();
+    if ($user) {
+        $user->email = $formFields['email'];
+        $user->save();
+    }
     return back();
     }
 
@@ -103,6 +108,11 @@ class StudentController extends Controller
         ]);
         $formFields['password'] = bcrypt($formFields['password']);
         $student->update($formFields);
+        $user = User::where('id', $student->user_id)->first();
+        if ($user) {
+            $user->password = $formFields['password'];
+            $user->save();
+        }
         return back();
         }
 
