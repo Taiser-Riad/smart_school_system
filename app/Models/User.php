@@ -61,4 +61,10 @@ public function headmaster()
 {
     return $this->hasOne(Headmaster::class);
 }
+
+public function hasRole($role)
+{
+    // Check if the user's role matches the specified role
+    return $this->role === $role;
+}
 }

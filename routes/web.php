@@ -26,6 +26,42 @@ Route::get('/', function () {
 
 
 
+
+
+
+
+//Route::get('/dashboard', function () {
+//    return view('dashboard');
+//})->middleware(['auth', 'verified'])->name('dashboard');
+
+
+require __DIR__.'/auth.php';
+
+
+//for students
+Route::middleware(['auth','role:student'])->group(function () {
+//welcome student
+Route::get('studentWelcome', [StudentController::class,'welcome']);
+});
+
+
+//for teachers
+Route::middleware(['auth','role:teacher'])->group(function () {
+//welcome teacher
+Route::get('teacherWelcome', [TeacherController::class,'welcome']);
+});
+
+
+//for managers
+Route::middleware(['auth','role:manager'])->group(function () {
+//welcome manager
+Route::get('managerWelcome', [ManagerController::class,'welcome']);
+
+});
+
+
+//for head-masters and managers
+Route::middleware(['auth','multirole:headmaster,manager'])->group(function () {
 //All teachers
 Route::get('/teachers', [TeacherController::class, 'index']);
 //Delete teacher
@@ -89,42 +125,11 @@ Route::get('/classrooms/{classroom}/addteacher', [ClassroomController::class,'ad
 Route::post('/classrooms/{classroom}', [ClassroomController::class,'storeTeacher']);
 //single classroom
 Route::get('/classrooms/{classroom}', [ClassroomController::class,'show']);
-
-
-
-
-
-//Route::get('/dashboard', function () {
-//    return view('dashboard');
-//})->middleware(['auth', 'verified'])->name('dashboard');
-
-
-require __DIR__.'/auth.php';
-
-
-//for students
-Route::middleware(['auth','role:student'])->group(function () {
-//welcome student
-Route::get('studentWelcome', [StudentController::class,'welcome']);
 });
 
-
-//for teachers
-Route::middleware(['auth','role:teacher'])->group(function () {
-//welcome teacher
-Route::get('teacherWelcome', [TeacherController::class,'welcome']);
-});
-
-
-//for managers
-Route::middleware(['auth','role:manager'])->group(function () {
-//welcome manager
-Route::get('managerWelcome', [ManagerController::class,'welcome']);
-});
-
-
-//for head-masters
+//for headmasters
 Route::middleware(['auth','role:headmaster'])->group(function () {
-//welcome head-master
-Route::get('headmasterWelcome', [HeadmasterController::class,'welcome']);
+    //welcome head-master
+    Route::get('headmasterWelcome', [HeadmasterController::class,'welcome']);
+    
 });
