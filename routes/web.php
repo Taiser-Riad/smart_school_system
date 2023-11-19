@@ -77,7 +77,7 @@ Route::put('/teachers/{teacher}', [TeacherController::class,'update']);
 //Show edit teacher password form
 Route::get('/teachers/{teacher}/editpassword', [TeacherController::class,'editpassword']);
 //Update teacher password
-Route::put('/teachers/{teacher}', [TeacherController::class,'updatepassword']);
+Route::put('/teachers/{teacher}/password', [TeacherController::class,'updatepassword']);
 //single teacher
 Route::get('/teachers/{teacher}', [TeacherController::class,'show']);
 
@@ -95,10 +95,10 @@ Route::post('/students', [StudentController::class,'store']);
 Route::get('/students/{student}/edit', [StudentController::class,'edit']);
 //Update student info
 Route::put('/students/{student}', [StudentController::class,'update']);
-//Show edit teacher password form
+//Show edit student password form
 Route::get('/students/{student}/editpassword', [StudentController::class,'editpassword']);
-//Update teacher password
-Route::put('/students/{student}', [StudentController::class,'updatepassword']);
+//Update student password
+Route::put('/students/{student}/password', [StudentController::class,'updatepassword']);
 //single student
 Route::get('/students/{student}', [StudentController::class,'show']);
 
@@ -129,7 +129,25 @@ Route::get('/classrooms/{classroom}', [ClassroomController::class,'show']);
 
 //for headmasters
 Route::middleware(['auth','role:headmaster'])->group(function () {
-    //welcome head-master
-    Route::get('headmasterWelcome', [HeadmasterController::class,'welcome']);
+//welcome head-master
+Route::get('headmasterWelcome', [HeadmasterController::class,'welcome']);
+//All managers
+Route::get('/managers', [ManagerController::class, 'index']);
+//Delete manager
+Route::delete('/managers/{manager}', [ManagerController::class,'destroy']);
+//Show add new manager form
+Route::get('/managers/create', [ManagerController::class,'create']);
+//Store manager data
+Route::post('/managers', [ManagerController::class,'store']);
+//Show edit manager form
+Route::get('/managers/{manager}/edit', [ManagerController::class,'edit']);
+//Update manager info
+Route::put('/managers/{manager}', [ManagerController::class,'update']);
+//Show edit manager password form
+Route::get('/managers/{manager}/editpassword', [ManagerController::class,'editpassword']);
+//Update manager password
+Route::put('/managers/{manager}/password', [ManagerController::class,'updatepassword']);
+//single manager
+Route::get('/managers/{manager}', [ManagerController::class,'show']);
     
 });

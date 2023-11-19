@@ -1,30 +1,3 @@
-<!--<script>
-    function passwordVisiblity() {
-      var x = document.getElementById("currentpassword");
-      if (x.type === "password") {
-        x.type = "text";
-      } else {
-        x.type = "password";
-      }
-    }
-      function newPasswordVisiblity() {
-      var x = document.getElementById("newPassword");
-      if (x.type === "password") {
-        x.type = "text";
-      } else {
-        x.type = "password";
-      }
-    }
-    function passwordConfirmationVisibility(){
-        var x = document.getElementById("newPassword_confirmation");
-      if (x.type === "password") {
-        x.type = "text";
-      } else {
-        x.type = "password";
-      }
-    }
-</script>
--->
 <a href="/teachers/{{$teacher->id}}/editpassword">
     <button>Change teacher password</button>
 </a>

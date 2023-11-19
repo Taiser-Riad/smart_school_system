@@ -1,5 +1,8 @@
+@php
+    $back=auth()->user()->role . "Welcome";
+@endphp
 <h1>{{$heading}}</h1>
-<a href="/">
+<a href="{{$back}}">
     <button>Back</button>
 </a>
 <br>

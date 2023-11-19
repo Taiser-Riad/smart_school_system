@@ -64,6 +64,7 @@ class StudentController extends Controller
         Student::create($formFields);
         return redirect('/students');
     }
+    //show edit student info form
     public function edit(Student $student){
         return view('Students.edit', ['student'=>$student]);
     }
@@ -86,7 +87,7 @@ class StudentController extends Controller
             'about'=> 'required',
     ]);
     if($request->hasFile('img')){
-        $formFields['img']= $request->file('img')->store('teachers','public');
+        $formFields['img']= $request->file('img')->store('students','public');
     }
     $student->update($formFields);
     $user = User::where('id', $student->user_id)->first();
@@ -101,7 +102,7 @@ class StudentController extends Controller
         public function editpassword(Student $student){
             return view('Students.editpassword', ['student'=>$student]);
         }
-
+        //Update student password
         public function updatePassword(Request $request, Student $student){
         $formFields = $request->validate([
             'password'=> ['required','confirmed','min:6'],
@@ -115,9 +116,9 @@ class StudentController extends Controller
         }
         return back();
         }
-
+        //Delete student
         public function destroy(Student $student){
             $student->delete();
-            return redirect('/students')->with('message','Teacher deleted successfully');
+            return redirect('/students')->with('message','Student deleted successfully');
         }
 }

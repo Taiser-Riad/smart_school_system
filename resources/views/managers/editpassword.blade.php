@@ -17,8 +17,8 @@
       }
     }
 </script>
-<h2>Change Student password</h2>
-<form method="POST" action="/students/{{$student->id}}/password" enctype="multipart/form-data">
+<h2>Change Manager Password</h2>
+<form method="POST" action="/managers/{{$manager->id}}/password" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <div class="mb-6">
@@ -67,6 +67,6 @@
             Edit password
         </button>
 
-        <a href="/students/{{$student->id}}" class="text-black ml-4"> Back </a>
+        <a href="/managers/{{$manager->id}}" class="text-black ml-4"> Back </a>
     </div>
 </form>
