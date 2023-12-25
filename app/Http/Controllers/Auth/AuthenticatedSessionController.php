@@ -36,12 +36,12 @@ class AuthenticatedSessionController extends Controller
         {
             return redirect()->intended('managerWelcome');
         }
-        
+
         elseif($request->user()->role === 'headmaster')
         {
             return redirect()->intended('headmasterWelcome');
         }
-        
+
         elseif($request->user()->role === 'student')
         {
             return redirect()->intended('studentWelcome');

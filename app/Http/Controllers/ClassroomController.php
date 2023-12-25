@@ -11,21 +11,21 @@ class ClassroomController extends Controller
 {
     //Show all class rooms
     public function index(){
-    return view('classrooms.index', [        
+    return view('classrooms.index', [
             'heading' => 'The class rooms',
             'classrooms' => Classroom::all()
         ]);
     }
            //Show all class room students
     public function indexstudents(Classroom $classroom){
-        return view('classrooms.indexstudents', [        
+        return view('classrooms.indexstudents', [
             'heading' => 'The class rooms students',
             'students' => Student::where('classroom_id', $classroom->id)->get()
             ]);
     }
     public function indexteachers(Classroom $classroom){
         $classroomId= $classroom->id;
-        return view('classrooms.indexteachers', [        
+        return view('classrooms.indexteachers', [
             'heading' => 'The class rooms teachers',
             'teachers' => Teacher::whereHas('classrooms', function ($query) use ($classroomId) {
                 $query->join('classroom_teacher as ct1', 'classrooms.id', '=', 'ct1.classroom_id')
@@ -95,7 +95,7 @@ class ClassroomController extends Controller
             $existingClassroom = Classroom::where('schoolYear', $formFields['schoolYear'])
             ->where('group', $formFields['group'])
             ->first();
-        
+
          if ($existingClassroom) {
               return response()->json([
                  'message' => 'A classroom with the same schoolYear and group already exists.'
@@ -119,4 +119,29 @@ class ClassroomController extends Controller
             $classroom->teachers()->syncWithoutDetaching($request->teacher);
             return redirect('/classrooms/'.$classroom->id);
         }
+
+
+        /**
+     * Function to handle joining a classroom.
+     */
+    public function joinClassroom(Request $request, $classroomId)
+{
+    $classroom = Classroom::find($classroomId);
+
+    if (!$classroom) {
+        return redirect()->back()->withErrors('Classroom not found.');
+    }
+
+    if (!$classroom->isActive()) {
+        return redirect()->back()->withErrors('This classroom session is not currently active.');
+    }
+
+    $user = $request->user(); // Assuming you're using Laravel's authentication
+    if (!$user->isEnrolledInClassroom($classroomId)) {
+        return redirect()->back()->withErrors('You are not enrolled in this classroom.');
+    }
+
+    // Proceed with classroom joining logic
+    return view('classrooms.join', ['classroom' => $classroom]);
+}
 }

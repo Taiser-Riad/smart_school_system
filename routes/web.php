@@ -125,6 +125,9 @@ Route::get('/classrooms/{classroom}/addteacher', [ClassroomController::class,'ad
 Route::post('/classrooms/{classroom}', [ClassroomController::class,'storeTeacher']);
 //single classroom
 Route::get('/classrooms/{classroom}', [ClassroomController::class,'show']);
+//join classrooms
+Route::get('/classrooms/join/{classroomId}', [ClassroomController::class, 'joinClassroom']);
+
 });
 
 //for headmasters
@@ -149,5 +152,6 @@ Route::get('/managers/{manager}/editpassword', [ManagerController::class,'editpa
 Route::put('/managers/{manager}/password', [ManagerController::class,'updatepassword']);
 //single manager
 Route::get('/managers/{manager}', [ManagerController::class,'show']);
-    
+
+
 });
