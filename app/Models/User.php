@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Hash; // Correct namespace for Hash
 
 class User extends Authenticatable
 {
@@ -40,31 +40,50 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
     ];
+
+    /**
+     * Automatically hash the password when setting it.
+     *
+     * @param string $value
+     * @return void
+     */
+    public function setPasswordAttribute($value)
+    {
+        if (!empty($value)) { // Simplified check for non-empty string
+            $this->attributes['password'] = Hash::make($value);
+        }
+    }
+
+    // User relationships
     public function teacher()
-{
-    return $this->hasOne(Teacher::class);
-}
+    {
+        return $this->hasOne(Teacher::class);
+    }
 
-public function student()
-{
-    return $this->hasOne(Student::class);
-}
+    public function student()
+    {
+        return $this->hasOne(Student::class);
+    }
 
-public function manager()
-{
-    return $this->hasOne(Manager::class);
-}
+    public function manager()
+    {
+        return $this->hasOne(Manager::class);
+    }
 
-public function headmaster()
-{
-    return $this->hasOne(Headmaster::class);
-}
+    public function headmaster()
+    {
+        return $this->hasOne(Headmaster::class);
+    }
 
-public function hasRole($role)
-{
-    // Check if the user's role matches the specified role
-    return $this->role === $role;
-}
+    /**
+     * Check if the user's role matches the specified role.
+     *
+     * @param string $role
+     * @return bool
+     */
+    public function hasRole($role)
+    {
+        return $this->role === $role;
+    }
 }
