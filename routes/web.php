@@ -22,7 +22,7 @@ use App\Http\Controllers\StudentController;
 */
 Route::get('/', function () {
     return view('first');
-});//->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 
 
@@ -30,9 +30,9 @@ Route::get('/', function () {
 
 
 
-//Route::get('/dashboard', function () {
-//    return view('dashboard');
-//})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', function () {
+   return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 
 require __DIR__.'/auth.php';
@@ -153,5 +153,23 @@ Route::put('/managers/{manager}/password', [ManagerController::class,'updatepass
 //single manager
 Route::get('/managers/{manager}', [ManagerController::class,'show']);
 
+
+Route::group(['namespace' => 'User'], function () {
+
+    Route::group(['middleware' => 'guest'], function () {
+        Route::get('login', 'UserAuth@login')->name('user.login');
+        Route::post('login', 'UserAuth@doLogin');
+        Route::get('signup', 'UserAuth@signup')->name('user.signup');
+        Route::post('signup', 'UserAuth@doSignup');
+    });
+
+    // prevent user to access these routes if not logged In
+    Route::group(['middleware' => 'auth'], function () {
+        Route::any('logout', 'UserAuth@logout')->name('user.logout');
+        Route::get('/', 'HomeController@index');
+        Route::post('result', 'HomeController@quizResult');
+        Route::get('result-csv', 'HomeController@exportCsv');
+    });
+    });
 
 });
